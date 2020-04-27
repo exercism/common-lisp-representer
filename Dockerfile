@@ -11,6 +11,7 @@ ADD https://beta.quicklisp.org/quicklisp.lisp src/
 # install quicklisp and other dependencies
 RUN sbcl --load src/quicklisp.lisp \
          --eval '(quicklisp-quickstart:install)' \
+         --eval '(ql:quickload "st-json")' \
          --quit
 
 # Copy over the test runner
