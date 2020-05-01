@@ -8,4 +8,6 @@
   :pathname "representer"
   :serial t
   :components ((:file "packages")
-               (:file "main")))
+               (:file "main"))
+
+  :in-order-to ((test-op (build-op "representer-test"))))
