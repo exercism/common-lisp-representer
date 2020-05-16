@@ -6,10 +6,6 @@
     (uiop:read-file-forms
      (merge-pathnames (make-pathname :name slug :type "lisp") directory)))  )
 
-(defun represent (forms)
-  "Returns normalized FORMS and a symbol map (a list of key-value pairs)"
-  (values forms '()))
-
 (defun write-representation (forms directory)
   "Writes the FORMS to a file 'representation.txt' in the DIRECTORY."
   (let ((output-file (merge-pathnames (make-pathname :name "representation" :type "txt") directory)))
