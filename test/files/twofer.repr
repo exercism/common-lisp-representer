@@ -1,0 +1,10 @@
+;; -*- mode: lisp -*-
+((DEFPACKAGE #:TWOFER-0
+   (:EXPORT #:TWOFER-1)
+   (:USE #:CL))
+ (IN-PACKAGE #:TWOFER-0)
+ (DEFUN #:TWOFER-1 (&OPTIONAL #:TWOFER-2)
+   (FORMAT NIL "One for ~a, one for me." (OR #:TWOFER-2 "you"))))
+((#:TWOFER-0 . #:TWO-FER)
+ (#:TWOFER-1 . TWOFER)
+ (#:TWOFER-2 . NAME))

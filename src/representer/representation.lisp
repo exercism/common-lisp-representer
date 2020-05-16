@@ -1,16 +1,17 @@
 (in-package #:representer)
 
-(defstruct (representation (:conc-name repr-))
-  (form)
-  (mapping))
+(defstruct (representation
+             (:conc-name repr-)
+             (:constructor make-repr (form mapping)))
+  (form (list))
+  (mapping (list)))
 
 (defun accumulate-representation (original new)
   "Merges the NEW representation into ORIGINAL one."
-  (make-representation (append (repr-form original)
-                               (repr-form new))
-                       (prune-alist
-                        (append (repr-mapping new)
-                                (repr-mapping original)))))
+  (make-representation
+   :form (append (repr-form original) (list (repr-form new)))
+   :mapping (prune-alist (append (repr-mapping new)
+                                 (repr-mapping original)))))
 
 (defun prune-alist (alist)
   "Remove duplicate keys found in ALIST"
