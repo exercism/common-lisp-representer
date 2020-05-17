@@ -2,8 +2,7 @@
 
 (defvar *gensym-prefix* "G")
 
-(defun init-gensym (prefix &optional (counter 0))
-  (setf *gensym-prefix* (string-upcase prefix)
-        *gensym-counter* counter))
+(defun init-gensym (prefix)
+  (setf *gensym-prefix* (string-upcase prefix)))
 
 (defun gensym () (cl:gensym *gensym-prefix*))
