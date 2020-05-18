@@ -8,7 +8,8 @@
   :pathname ""
   :serial t
   :components ((:file "packages")
-               (:file "suite"))
+               (:file "suite")
+               (:file "placeholder"))
 
   :build-operation test-op
   :perform (test-op (o c)

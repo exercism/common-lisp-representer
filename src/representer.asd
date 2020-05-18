@@ -8,6 +8,7 @@
   :pathname "representer"
   :serial t
   :components ((:file "packages")
+               (:file "placeholder")
                (:file "representation")
                (:file "represent")
                (:file "main"))
