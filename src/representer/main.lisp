@@ -23,6 +23,6 @@
   (let ((slug (first args))
         (directory (pathname (second args))))
     (multiple-value-bind (forms symbol-map)
-        (represent (slurp-solution slug directory))
+        (represent-toplevel slug (slurp-solution slug directory))
       (write-representation forms directory)
       (write-symbol-map symbol-map directory))))
