@@ -10,7 +10,10 @@
         *counter* 0))
 
 (defun ->alist ()
-  (sort (copy-seq *placeholders*)
+  (sort (mapcar
+         #'(lambda (acons) (cons (write-to-string (car acons))
+                            (write-to-string (cdr acons))))
+         *placeholders*)
         #'string<
         :key #'car))
 

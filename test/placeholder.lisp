@@ -28,7 +28,8 @@
           "lookup of '~A' resulted in '~A' not '~A'" mapped lookup symbol)
       (is (eq rev-lookup mapped)
           "reverse lookup of '~A' result in '~A' not '~A'" symbol rev-lookup mapped)
-      (is (equal (placeholder:->alist) `((,mapped . ,symbol)))))))
+      (is (equal (placeholder:->alist) `((,(write-to-string mapped) .
+                                           ,(write-to-string symbol))))))))
 
 (def-fixture init-with-existing-symbols (slug symbols)
   (placeholder:init slug)
@@ -57,9 +58,12 @@
            (second-mapping (placeholder:add symbol2))
            (third-mapping (placeholder:add symbol3))
 
-           (expected-alist `((,first-mapping . ,symbol1)
-                             (,second-mapping . ,symbol2)
-                             (,third-mapping . ,symbol3))))
+           (expected-alist `((,(write-to-string first-mapping) .
+                               ,(write-to-string symbol1))
+                             (,(write-to-string second-mapping) .
+                               ,(write-to-string symbol2))
+                             (,(write-to-string third-mapping) .
+                               ,(write-to-string symbol3)))))
       (is (equal (placeholder:->alist) expected-alist))
 
       ;; add symbol2 again!
