@@ -9,7 +9,8 @@
   :serial t
   :components ((:file "packages")
                (:file "suite")
-               (:file "placeholder"))
+               (:file "placeholder")
+               (:file "end-to-end"))
 
   :build-operation test-op
   :perform (test-op (o c)
