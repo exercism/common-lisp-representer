@@ -9,7 +9,11 @@
 
 (defmethod represent (symbol form)
   (declare (ignore symbol))
-  form)
+  (mapcar
+   #'(lambda (x) (if (atom x)
+                (or (and (symbolp x) (placeholder:rassoc x)) x)
+                (represent (car x) x)))
+   form))
 
 (defmethod represent ((symbol (eql 'defpackage)) form)
   (let ((package-name (second form))
