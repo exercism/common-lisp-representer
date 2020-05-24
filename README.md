@@ -17,8 +17,8 @@ The `/opt/representer/bin/generate.sh` script that the docker image runs receive
 
 The script *MUST* write the following files to the directory:
 
-1. `representation.txt`: a normalized representation of the submitted code. All symbols must be replaced by gensyms.
-2. `mapping.json`: maps the gensyms in `representation.txt` to the original symbols.
+1. `representation.txt`: a normalized representation of the submitted code. All symbols must be replaced by generated symbols.
+2. `mapping.json`: maps the generated symbols in `representation.txt` to the original symbols.
 
 The output of the script *MAY* write the following files to the directory:
 
