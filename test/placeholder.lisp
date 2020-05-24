@@ -31,6 +31,11 @@
       (is (equal (placeholder:->alist) `((,(write-to-string mapped) .
                                            ,(write-to-string symbol))))))))
 
+(test rassoc-of-uninterned-symbol
+  (with-fixture init-with-slug ("uninterned")
+    (let ((mapped (placeholder:add '#:foo)))
+      (is (eq mapped (placeholder:rassoc '#:foo))))))
+
 (def-fixture init-with-existing-symbols (slug symbols)
   (placeholder:init slug)
   (dolist (sym symbols) (placeholder:add sym))

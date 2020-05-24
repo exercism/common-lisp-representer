@@ -32,5 +32,11 @@
 (defun assoc (placeholder)
   (cdr (cl:assoc placeholder *placeholders*)))
 
+(defun symbol-equal (&rest symbols)
+  (let ((packages (mapcar #'symbol-package symbols)))
+    (if (every #'null packages)
+        (apply #'string= (mapcar #'symbol-name symbols))
+        (apply #'eq symbols))))
+
 (defun rassoc (symbol)
-  (car (cl:rassoc symbol *placeholders*)))
+  (car (cl:rassoc symbol *placeholders* :test #'symbol-equal)))
