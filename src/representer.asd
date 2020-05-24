@@ -3,7 +3,7 @@
   :version "0.0.0"
   :description "Exercism Common Lisp Representer"
 
-  :depends-on ("uiop" "st-json")
+  :depends-on ("uiop" "yason")
 
   :pathname "representer"
   :serial t

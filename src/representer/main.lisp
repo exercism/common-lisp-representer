@@ -17,7 +17,7 @@
 'mapping.json' in the DIRECTORY."
   (let ((output-file (merge-pathnames (make-pathname :name "mapping" :type "json") directory)))
     (with-open-file (output output-file :direction :output :if-exists :supersede)
-      (st-json:write-json (apply #'st-json:jso symbol-map) output))))
+      (yason:encode-alist symbol-map output))))
 
 (defun main (args)
   (let ((slug (first args))
