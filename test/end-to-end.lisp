@@ -12,6 +12,6 @@
   (let* ((slug "two-fer")
          (solution (read-test-file slug "lisp"))
          (expected (read-test-file slug "repr")))
-    (is (equalp expected
-                (multiple-value-list
-                 (representer::represent-toplevel slug solution))))))
+    (is (equalp++ expected
+                  (multiple-value-list
+                   (representer::represent-toplevel slug solution))))))

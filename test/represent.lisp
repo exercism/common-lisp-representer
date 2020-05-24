@@ -14,6 +14,10 @@
     (is (equal (substitute mapped 'x form)
                (representer::represent (car form) form)))))
 
+(test uninterned-symbol-with-no-placeholder
+  (is (equalp++ '(:use #:cl)
+              (representer::represent :use '(:use #:cl)))))
+
 (test defpackage
   (is (equalp '(((defpackage :test-0
                    (:export :test-1)
