@@ -18,10 +18,32 @@
   (is (equalp '(((defpackage :test-0
                    (:export :test-1)
                    (:use :cl)))
-                ((":TEST-0" . "#:PACK") (":TEST-1" . "#:THINGIE")
-                 (":TEST-2" . "THINGIE")))
+                ((":TEST-0" . "#:PACK") (":TEST-1" . "#:THINGIE")))
               (multiple-value-list (representer::represent-toplevel
                                     "test"
                                     '((defpackage #:pack
                                         (:use :cl)
                                         (:export #:thingie))))))))
+
+(test defun
+  (let ((form
+         '(defun foo (bar &key baz &optional (quux 13) &aux extra &rest other)
+           (+ bar baz quux extra other))))
+    (is (equalp '(((defun :defun-0 (:defun-1
+                                    &key :defun-2
+                                    &optional (:defun-3 13)
+                                    &aux :defun-4
+                                    &rest :defun-5)
+                     (:docstring nil)
+                     ((+ :defun-1 :defun-2 :defun-3 :defun-4 :defun-5))))
+                  ((":DEFUN-0" . "FOO") (":DEFUN-1" . "BAR")
+                   (":DEFUN-2" . "BAZ") (":DEFUN-3" . "QUUX")
+                   (":DEFUN-4" . "EXTRA") (":DEFUN-5" . "OTHER")))
+                (multiple-value-list (representer::represent-toplevel
+                                      "defun" (list form)))))))
+
+(test defun-with-docstring
+  (is (equalp '(:docstring t)
+              (fourth (first (representer::represent-toplevel
+                              "defun"
+                              '((defun foo () "this is a docstring"))))))))

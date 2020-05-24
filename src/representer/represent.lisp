@@ -25,3 +25,20 @@
 
 (defmethod represent ((symbol (eql :export)) form)
   `(,symbol ,@(mapcar #'placeholder:add (rest form))))
+
+(defmethod represent ((symbol (eql 'defun)) form)
+  (let* ((name (second form))
+         (args (third form))
+         (docstring (when (stringp (fourth form)) (fourth form)))
+         (body (subseq form (if docstring 4 3))))
+    `(,symbol ,(placeholder:add name) ,(represent :arglist args)
+              (:docstring ,(if docstring t nil))
+              ,(represent :body body))))
+
+(defmethod represent ((symbol (eql :arglist)) form)
+  (declare (ignore symbol))
+  (flet ((add-param (sym)
+           (cond ((listp sym) (cons (placeholder:add (car sym)) (cdr sym)))
+                 ((char= #\& (char (symbol-name sym) 0)) sym)
+                 (t (placeholder:add sym)))))
+   (mapcar #'add-param form)))
