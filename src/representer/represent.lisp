@@ -1,10 +1,5 @@
 (in-package #:representer)
 
-(defun represent-toplevel (slug forms)
-  (placeholder:init slug)
-  (values (loop for form in forms collect (represent (car form) form))
-          (placeholder:->alist)))
-
 (defgeneric represent (symbol form))
 
 (defmethod represent (symbol form)

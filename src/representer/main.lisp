@@ -28,8 +28,9 @@
     (when (find-package repr-package-name) (delete-package repr-package-name))
     (unwind-protect
          (let ((*package* (make-package repr-package-name :use '(:cl))))
-           (multiple-value-bind (forms symbol-map)
-               (represent-toplevel slug (slurp-solution slug directory))
+           (placeholder:init slug)
+           (let ((forms (represent nil (slurp-solution slug directory)))
+                 (symbol-map (placeholder:->alist)))
              (write-representation forms directory)
              (write-symbol-map symbol-map directory)))
       (delete-package repr-package-name))))
