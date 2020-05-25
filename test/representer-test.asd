@@ -10,6 +10,7 @@
   :components ((:file "packages")
                (:file "suite")
                (:file "placeholder")
+               (:file "represent")
                (:file "end-to-end"))
 
   :build-operation test-op
