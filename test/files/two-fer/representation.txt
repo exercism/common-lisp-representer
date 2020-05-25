@@ -1,12 +1,7 @@
-;; -*- mode: lisp -*-
 ((DEFPACKAGE :TWO-FER-0
    (:EXPORT :TWO-FER-1)
    (:USE #:CL))
  (IN-PACKAGE :TWO-FER-0)
  (DEFUN :TWO-FER-2 (&OPTIONAL :TWO-FER-3)
-   (:DOCSTRING nil)
+   (:DOCSTRING NIL)
    ((FORMAT NIL "One for ~a, one for me." (OR :TWO-FER-3 "you")))))
-((":TWO-FER-0" . "#:TWO-FER")
- (":TWO-FER-1" . "#:TWOFER")
- (":TWO-FER-2" . "TWOFER")
- (":TWO-FER-3" . "NAME"))
