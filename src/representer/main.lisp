@@ -38,7 +38,9 @@
     (with-open-file (solution-stream (solution-file slug directory)
                                      :direction :input)
       (with-open-file (repr-stream (representation-file directory)
-                                   :direction :output)
+                                   :direction :output
+                                   :if-exists :supersede)
         (with-open-file (mapping-stream (mapping-file directory)
-                                        :direction :output)
+                                        :direction :output
+                                        :if-exists :supersede)
           (produce-representation slug solution-stream repr-stream mapping-stream))))))
