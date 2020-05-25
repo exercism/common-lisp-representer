@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sbcl --script ./src/bootstrap.lisp $1 $2
+sbcl --script ./src/generate.lisp $1 $2

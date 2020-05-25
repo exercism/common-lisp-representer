@@ -14,9 +14,12 @@ RUN sbcl --load src/quicklisp.lisp \
          --eval '(ql:quickload "yason")' \
          --quit
 
+# compile the application
+COPY src/ src/
+RUN sbcl --script ./src/build.lisp
+
 # Copy over the test runner
 COPY bin/generate.sh bin/
-COPY src/ src/
 
 # Set reprsenter script as the ENTRYPOINT
 ENTRYPOINT ["bin/generate.sh"]
