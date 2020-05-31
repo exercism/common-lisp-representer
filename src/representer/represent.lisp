@@ -14,11 +14,15 @@
   (let ((package-name (second form))
         (body (cddr form)))
     `(,symbol ,(placeholder:add package-name)
-              ,@(sort (mapcar #'(lambda (f) (represent (car f) f)) body)
-                      #'string<
-                      :key #'(lambda (f) (symbol-name (car f)))))))
+              ,@(mapcar #'(lambda (f) (represent (car f) f))
+                        (sort body
+                              #'string<
+                              :key #'(lambda (f) (symbol-name (car f))))))))
 
 (defmethod represent ((symbol (eql :export)) form)
+  `(,symbol ,@(mapcar #'placeholder:add (rest form))))
+
+(defmethod represent ((symbol (eql :use)) form)
   `(,symbol ,@(mapcar #'placeholder:add (rest form))))
 
 (defmethod represent ((symbol (eql 'defun)) form)
