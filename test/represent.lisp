@@ -22,19 +22,20 @@
                  (representer::represent (car form) form))))))
 
 (test uninterned-symbol-with-no-placeholder
-  (is (equalp++ '(:use #:cl)
-              (representer::represent :use '(:use #:cl)))))
+  (is (equalp++ '(foo #:cl)
+              (representer::represent 'foo '(foo #:cl)))))
 
 (test defpackage
   (with-fixture with-placeholders-initialized ("test")
     (is (equalp '(defpackage :test-0
                   (:export :test-1)
-                  (:use :cl))
+                  (:use :test-2))
                 (representer::represent 'defpackage
                                         '(defpackage #:pack
                                           (:use :cl)
                                           (:export #:thingie)))))
-    (is (equalp '((":TEST-0" . "#:PACK") (":TEST-1" . "#:THINGIE"))
+    (is (equalp '((":TEST-0" . "#:PACK") (":TEST-1" . "#:THINGIE")
+                  (":TEST-2" . ":CL"))
                 (placeholder:->alist)))))
 
 (test defun
