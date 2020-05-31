@@ -7,7 +7,8 @@
   (let ((repr-file (representer::representation-file directory))
         (mapping-file (representer::mapping-file directory)))
     (values (uiop:read-file-forms repr-file)
-            (yason:parse (uiop:read-file-string mapping-file)))))
+            (alexandria:hash-table-plist
+             (yason:parse (uiop:read-file-string mapping-file))))))
 
 (defun get-actual-values (slug directory)
   (let ((actual-repr-stream (make-string-output-stream))
@@ -23,7 +24,8 @@
           (actual-mapping-str (get-output-stream-string actual-mapping-stream)))
       (values (uiop:slurp-stream-forms
                (make-string-input-stream actual-repr-str))
-              (yason:parse actual-mapping-str)))))
+              (alexandria:hash-table-plist
+               (yason:parse actual-mapping-str))))))
 
 (test two-fer
   (let* ((slug "two-fer")
