@@ -1,2 +1,4 @@
-(load "./src/setup-env")
-(asdf:compile-system "representer")
+(load "src/setup-env")
+(let ((system "representer"))
+  (ql:quickload system)
+  (asdf:compile-system system))

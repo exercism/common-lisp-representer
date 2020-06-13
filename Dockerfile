@@ -8,13 +8,11 @@ env HOME /opt/representer
 # Pull down the latest Quicklisp
 ADD https://beta.quicklisp.org/quicklisp.lisp src/
 
-# install quicklisp and other dependencies
-RUN sbcl --load src/quicklisp.lisp \
-         --eval '(quicklisp-quickstart:install)' \
-         --eval '(ql:quickload "yason")' \
-         --quit
+# install quicklisp
+COPY src/ src/
+RUN sbcl --script ./src/install-quicklisp.lisp
 
-# compile the application
+# build the application
 COPY src/ src/
 RUN sbcl --script ./src/build.lisp
 
