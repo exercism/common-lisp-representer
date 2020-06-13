@@ -31,6 +31,21 @@
       (is (equal (placeholder:->alist) `((,(write-to-string mapped) .
                                            ,(write-to-string symbol))))))))
 
+(test does-not-add-nil
+  (with-fixture init-with-slug ("nil")
+    (is (eq nil (placeholder:add nil)))
+    (is (eq '() (placeholder:->alist)))))
+
+(test does-not-add-non-symbol
+  ;; a non-exhaustive test
+  (with-fixture init-with-slug ("non-symbol")
+    (is (= 5 (placeholder:add 5)))
+    (let ((some-list (list 'x 'y 1 2))
+          (some-string "blahblah"))
+      (is (eq some-list (placeholder:add some-list)))
+      (is (eq some-string (placeholder:add some-string))))
+    (is (equal '() (placeholder:->alist)))))
+
 (test rassoc-of-uninterned-symbol
   (with-fixture init-with-slug ("uninterned")
     (let ((mapped (placeholder:add '#:foo)))

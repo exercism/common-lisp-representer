@@ -22,12 +22,14 @@
     (incf *counter*)))
 
 (defun add (symbol)
-  (let ((existing (rassoc symbol)))
-    (or existing
-        (let ((new-symbol (new)))
-          (setf *placeholders*
-                (acons new-symbol symbol *placeholders*))
-          new-symbol))))
+  (if (and symbol (symbolp symbol))
+    (let ((existing (rassoc symbol)))
+      (or existing
+          (let ((new-symbol (new)))
+            (setf *placeholders*
+                  (acons new-symbol symbol *placeholders*))
+            new-symbol)))
+    symbol))
 
 (defun assoc (placeholder)
   (cdr (cl:assoc placeholder *placeholders*)))
