@@ -4,8 +4,8 @@
 (in-suite end-to-end)
 
 (defun load-expected-values (directory)
-  (let ((repr-file (representer::representation-file directory))
-        (mapping-file (representer::mapping-file directory)))
+  (let ((repr-file (representer/main::representation-file directory))
+        (mapping-file (representer/main::mapping-file directory)))
     (values (uiop:read-file-forms repr-file)
             (alexandria:hash-table-plist
              (yason:parse (uiop:read-file-string mapping-file))))))
@@ -13,10 +13,10 @@
 (defun get-actual-values (slug directory)
   (let ((actual-repr-stream (make-string-output-stream))
         (actual-mapping-stream (make-string-output-stream))
-        (solution-file (representer::solution-file slug directory)))
+        (solution-file (representer/main::solution-file slug directory)))
 
     (with-open-file (solution-stream solution-file :direction :input)
-      (representer::produce-representation
+      (representer/main::produce-representation
        slug solution-stream
        actual-repr-stream actual-mapping-stream))
 

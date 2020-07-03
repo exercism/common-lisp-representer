@@ -1,7 +1,3 @@
-(defpackage #:representer
-  (:use #:cl)
-  (:export #:main))
-
 (defpackage #:placeholder
   (:documentation "Placeholder abstraction. Symbols can be mapped to
   placeholders. Placeholders can be looked up to find symbols and symbols to
@@ -11,3 +7,11 @@
   (:use #:cl)
   (:shadow #:assoc #:rassoc)
   (:export #:init #:assoc #:rassoc #:->alist #:new #:add))
+
+(defpackage #:representer
+  (:use #:cl)
+  (:export #:represent))
+
+(defpackage #:representer/main
+  (:use #:cl #:representer)
+  (:export #:main))

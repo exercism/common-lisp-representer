@@ -11,7 +11,7 @@
 
 (test empty-form
   (with-fixture with-placeholders-initialized ("slug")
-    (is (equalp '() (representer::represent nil '())))
+    (is (equalp '() (representer:represent nil '())))
     (is (equalp '() (placeholder:->alist)))))
 
 (test arbitrary-form
@@ -19,18 +19,18 @@
     (let ((mapped (placeholder:add 'x))
           (form '(foo 2 x 4)))
       (is (equal (substitute mapped 'x form)
-                 (representer::represent (car form) form))))))
+                 (representer:represent (car form) form))))))
 
 (test uninterned-symbol-with-no-placeholder
   (is (equalp++ '(foo #:cl)
-                (representer::represent 'foo '(foo #:cl)))))
+                (representer:represent 'foo '(foo #:cl)))))
 
 (test defpackage
   (with-fixture with-placeholders-initialized ("test")
     (is (equalp '(defpackage :test-0
                   (:export :test-1)
                   (:use :test-2))
-                (representer::represent 'defpackage
+                (representer:represent 'defpackage
                                         '(defpackage #:pack
                                           (:use :cl)
                                           (:export #:thingie)))))
@@ -46,7 +46,7 @@
                   (:docstring nil)
                   (:declare nil)
                   ())
-                (representer::represent 'defun '(defun foo ()))))
+                (representer:represent 'defun '(defun foo ()))))
     (is (equal '((":DEFUN-0" . "FOO"))
                (placeholder:->alist)))))
 
@@ -59,7 +59,7 @@
                   (:docstring nil)
                   (:declare nil)
                   ())
-                (representer::represent 'defun
+                (representer:represent 'defun
                                         '(defun fun (req
                                                      &optional opt
                                                      &rest rest
@@ -77,7 +77,7 @@
 (test defun-with-default-values-and-supplied-p
   (with-fixture with-placeholders-initialized ("defun")
     (let ((representation
-           (representer::represent
+           (representer:represent
             'defun
             '(defun foo (&optional (opt opt-default opt-supplied-p)
                          &key (key key-default key-supplied-p))))))
@@ -97,7 +97,7 @@
 (test defun-with-aux-value
   (with-fixture with-placeholders-initialized ("defun")
     (let ((representation
-           (representer::represent
+           (representer:represent
             'defun
             '(defun foo (&aux (aux aux-default))))))
       (is (equal '(:aux ((:defun-1 :defun-2)))
@@ -116,19 +116,19 @@
                   (:docstring t)
                   (:declare nil)
                   (()))
-                (representer::represent 'defun '(defun foo () "a docstring" nil))))
+                (representer:represent 'defun '(defun foo () "a docstring" nil))))
     (is (equal '((":DEFUN-0" . "FOO"))
                (placeholder:->alist)))))
 
 (test defun-with-declarations
   (with-fixture with-placeholders-initialized ("defun")
     (is (equalp '(:declare ((declare (ignore :defun-1) (speed 0))))
-                (fifth (representer::represent
+                (fifth (representer:represent
                         'defun '(defun foo (bar)
                                  (declare (ignore bar) (speed 0)))))))
     (is (equalp '(:declare ((declare (ignore :defun-1))
                            (declare (speed 0))))
-                (fifth (representer::represent
+                (fifth (representer:represent
                         'defun '(defun foo (bar)
                                  (declare (ignore bar))
                                  (declare (speed 0)))))))))
@@ -136,5 +136,5 @@
 (test defun-represents-body
   (with-fixture with-placeholders-initialized ("defun")
     (is (equalp '((list :DEFUN-1 :DEFUN-2))
-                (sixth (representer::represent
+                (sixth (representer:represent
                         'defun '(defun foo (a b) (list a b))))))))
