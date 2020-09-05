@@ -9,10 +9,11 @@
 
 (_.c.f._ [The Representer Interface][automated-analysis-representer-interface])
 
-The `/opt/representer/bin/generate.sh` script that the docker image runs receives two parameters:
+The `/opt/representer/bin/run.sh` script that the docker image runs receives two parameters:
 
 1. the test slug
-2. the input/output directory namestring. This directory contains the submitted code.
+2. the input directory namestring. This directory contains the submitted code.
+2. the output directory namestring. This directory will be writable.
 
 
 The script *MUST* write the following files to the directory:

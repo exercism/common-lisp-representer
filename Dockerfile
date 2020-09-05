@@ -17,7 +17,7 @@ COPY src/ src/
 RUN sbcl --script ./src/build.lisp
 
 # Copy over the test runner
-COPY bin/generate.sh bin/
+COPY bin/run.sh bin/
 
 # # Pull down the tooling connector binary
 ADD https://github.com/exercism/tooling-webserver/releases/latest/download/tooling_webserver /usr/local/bin
@@ -25,4 +25,4 @@ ADD https://github.com/exercism/tooling-webserver/releases/latest/download/tooli
 RUN chmod +x /usr/local/bin/tooling_webserver
 
 # Set reprsenter script as the ENTRYPOINT
-ENTRYPOINT ["bin/generate.sh"]
+ENTRYPOINT ["bin/run.sh"]
