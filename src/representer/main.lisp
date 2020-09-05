@@ -34,13 +34,13 @@
 
 
 (defun main (&rest args)
-  (destructuring-bind ((slug directory)) args
-    (with-open-file (solution-stream (solution-file slug directory)
+  (destructuring-bind ((slug input-directory output-directory)) args
+    (with-open-file (solution-stream (solution-file slug input-directory)
                                      :direction :input)
-      (with-open-file (repr-stream (representation-file directory)
+      (with-open-file (repr-stream (representation-file output-directory)
                                    :direction :output
                                    :if-exists :supersede)
-        (with-open-file (mapping-stream (mapping-file directory)
+        (with-open-file (mapping-stream (mapping-file output-directory)
                                         :direction :output
                                         :if-exists :supersede)
           (produce-representation slug solution-stream repr-stream mapping-stream))))))
