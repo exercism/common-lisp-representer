@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sbcl --script ./src/generate.lisp $1 $2 $3
+bin/representer $1 $2 $3
