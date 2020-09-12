@@ -1,4 +1,4 @@
-(load "./src/setup-env")
-(asdf:load-system "representer")
+(load "quicklisp/setup")
+(ql:quickload "representer")
 
 (apply #'representer/main:main (uiop:command-line-arguments))
