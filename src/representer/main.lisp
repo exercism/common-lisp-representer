@@ -34,7 +34,7 @@
 
 
 (defun main (&rest args)
-  (destructuring-bind ((slug input-directory output-directory)) args
+  (destructuring-bind (slug input-directory output-directory) args
     (with-open-file (solution-stream (solution-file slug input-directory)
                                      :direction :input)
       (with-open-file (repr-stream (representation-file output-directory)
