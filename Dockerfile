@@ -9,15 +9,16 @@ env HOME /opt/representer
 ADD https://beta.quicklisp.org/quicklisp.lisp quicklisp/
 
 # install quicklisp
-COPY src/install-quicklisp.lisp .
-RUN sbcl --script install-quicklisp.lisp
+COPY build/install-quicklisp.lisp build/
+RUN sbcl --script build/install-quicklisp.lisp
 COPY src quicklisp/local-projects
 
 # build the application
-COPY src/ src/
-RUN sbcl --script ./src/build.lisp
+COPY build/build.lisp build/
+RUN sbcl --script ./build/build.lisp
 
 # Copy over the test runner
+COPY src/generate.lisp src/
 COPY bin/run.sh bin/
 
 # # Pull down the tooling connector binary
