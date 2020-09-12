@@ -11,10 +11,10 @@ ADD https://beta.quicklisp.org/quicklisp.lisp quicklisp/
 # install quicklisp
 COPY build/install-quicklisp.lisp build/
 RUN sbcl --script build/install-quicklisp.lisp
-COPY src quicklisp/local-projects
 
 # build the application
 COPY build/build.lisp build/
+COPY src quicklisp/local-projects/representer
 RUN sbcl --script ./build/build.lisp
 
 # Copy over the test runner
