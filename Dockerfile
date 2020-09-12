@@ -6,11 +6,12 @@ WORKDIR /opt/representer
 env HOME /opt/representer
 
 # Pull down the latest Quicklisp
-ADD https://beta.quicklisp.org/quicklisp.lisp src/
+ADD https://beta.quicklisp.org/quicklisp.lisp quicklisp/
 
 # install quicklisp
-COPY src/ src/
-RUN sbcl --script ./src/install-quicklisp.lisp
+COPY src/install-quicklisp.lisp .
+RUN sbcl --script install-quicklisp.lisp
+COPY src quicklisp/local-projects
 
 # build the application
 COPY src/ src/
