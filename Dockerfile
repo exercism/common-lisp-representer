@@ -22,7 +22,7 @@ RUN sbcl --script ./build/build.lisp
 FROM alpine
 WORKDIR /opt/representer
 
-# Copy over the test runner
+# Copy over the representer code
 COPY --from=build /opt/representer/representer bin/
 COPY bin/run.sh bin/
 
@@ -30,5 +30,5 @@ COPY bin/run.sh bin/
 ADD https://github.com/exercism/tooling-webserver/releases/latest/download/tooling_webserver /usr/local/bin
 RUN chmod +x /usr/local/bin/tooling_webserver
 
-# Set reprsenter script as the ENTRYPOINT
+# Set representer script as the ENTRYPOINT
 ENTRYPOINT ["bin/run.sh"]
