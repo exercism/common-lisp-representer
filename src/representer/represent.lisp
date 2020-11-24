@@ -4,6 +4,13 @@
 
 (defmethod represent (symbol form)
   (declare (ignore symbol))
+  (or (and (symbolp form) (placeholder:rassoc form)) form))
+
+(defmethod repressent ((symbol list) form)
+  (represent (car symbol) form))
+
+(defmethod represent (symbol (form list))
+  (declare (ignore symbol))
   (mapcar
    #'(lambda (x) (if (atom x)
                 (or (and (symbolp x) (placeholder:rassoc x)) x)
@@ -30,11 +37,11 @@
   (destructuring-bind (symbol name args &body body) form
     `(,symbol ,(placeholder:add name) ,(represent :arglist args)
               ,@(multiple-value-bind (remaining declarations documentation)
-                   (alexandria:parse-body body :documentation t)
+                    (alexandria:parse-body body :documentation t)
                   (list (list :docstring (if documentation t nil))
                         (list :declare (mapcar #'(lambda (d) (represent 'declare d))
                                                declarations))
-                        (mapcar #'(lambda (f) (represent (car f) f)) remaining))))))
+                        (mapcar #'(lambda (f) (represent f f)) remaining))))))
 
 (defmethod represent ((symbol (eql :arglist)) form)
   (declare (ignore symbol))
