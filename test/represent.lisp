@@ -50,6 +50,11 @@
     (is (equal '((":DEFUN-0" . "FOO"))
                (placeholder:->alist)))))
 
+(test defun-body-is-atom
+  (with-fixture with-placeholders-initialized ("defun")
+    (is (equalp '(:a-single-atom)
+                (sixth (representer:represent 'defun '(defun foo () :a-single-atom)))))))
+
 (test defun-one-of-every-arg
   (with-fixture with-placeholders-initialized ("defun")
     (is (equalp '(defun :defun-0
