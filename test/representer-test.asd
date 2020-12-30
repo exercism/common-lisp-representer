@@ -11,7 +11,8 @@
                (:file "suite")
                (:file "placeholder")
                (:file "represent")
-               (:file "end-to-end"))
+               (:file "end-to-end")
+               (:file "manual-test"))
 
   :build-operation test-op
   :perform (test-op (o c)
