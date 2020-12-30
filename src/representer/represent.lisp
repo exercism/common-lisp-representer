@@ -4,16 +4,17 @@
 
 (defmethod represent (symbol form)
   (declare (ignore symbol))
-  (or (and (symbolp form) (placeholder:rassoc form)) form))
+  form)
 
-(defmethod repressent ((symbol list) form)
-  (represent (car symbol) form))
+(defmethod represent (symbol (form symbol))
+  (declare (ignore symbol))
+  (or (placeholder:rassoc form) form))
 
 (defmethod represent (symbol (form list))
   (declare (ignore symbol))
   (mapcar
    #'(lambda (x) (if (atom x)
-                (or (and (symbolp x) (placeholder:rassoc x)) x)
+                (represent nil x)
                 (represent (car x) x)))
    form))
 
