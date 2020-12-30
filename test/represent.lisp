@@ -143,3 +143,9 @@
     (is (equalp '((list :DEFUN-1 :DEFUN-2))
                 (sixth (representer:represent
                         'defun '(defun foo (a b) (list a b))))))))
+
+(test dotted-pair
+  ;; quote here used as example symbol...
+  (with-fixture with-placeholders-initialized ("dotted-pair")
+    (is (equalp '(QUOTE (1 2 . 3))
+                (representer:represent 'quote '(quote (1 2 . 3)))))))

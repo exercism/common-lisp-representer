@@ -12,11 +12,10 @@
 
 (defmethod represent (symbol (form list))
   (declare (ignore symbol))
-  (mapcar
-   #'(lambda (x) (if (atom x)
-                (represent nil x)
-                (represent (car x) x)))
-   form))
+  (let ((head (car form))
+        (tail (cdr form)))
+    (append (list (representer:represent (if (listp head) (car head) head) head))
+            (representer:represent (if (listp tail) (car tail) tail) tail))))
 
 (defmethod represent ((symbol (eql 'defpackage)) form)
   (let ((package-name (second form))
