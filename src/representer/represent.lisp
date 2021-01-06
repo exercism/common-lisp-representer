@@ -1,5 +1,12 @@
 (in-package #:representer)
 
+(defun list-type (list)
+  (multiple-value-bind (length error)
+      (ignore-errors (list-length list))
+    (cond (error :dotted)
+          (length :proper)
+          (t :circular))))
+
 (defgeneric represent (symbol form))
 
 (defmethod represent (symbol form)
@@ -12,10 +19,12 @@
 
 (defmethod represent (symbol (form list))
   (declare (ignore symbol))
-  (let ((head (car form))
-        (tail (cdr form)))
-    (append (list (representer:represent (if (listp head) (car head) head) head))
-            (representer:represent (if (listp tail) (car tail) tail) tail))))
+  (if (eq :circular (list-type form))
+      form
+      (let ((head (car form))
+            (tail (cdr form)))
+        (append (list (representer:represent (if (listp head) (car head) head) head))
+                (representer:represent (if (listp tail) (car tail) tail) tail)))))
 
 (defmethod represent ((symbol (eql 'defpackage)) form)
   (let ((package-name (second form))
