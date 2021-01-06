@@ -149,3 +149,10 @@
   (with-fixture with-placeholders-initialized ("dotted-pair")
     (is (equalp '(QUOTE (1 2 . 3))
                 (representer:represent 'quote '(quote (1 2 . 3)))))))
+
+(test circular-list
+  (with-fixture with-placeholders-initialized ("circular")
+    (let ((repr (with-output-to-string (str)
+                  (write (representer:represent nil '#0=(1 2 . #0#))
+                         :stream str :circle t))))
+      (is (string= "#1=(1 2 . #1#)" repr)))))
