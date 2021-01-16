@@ -10,6 +10,7 @@
   :components ((:file "packages")
                (:file "placeholder")
                (:file "represent")
+               (:file "io")
                (:file "main"))
 
   :in-order-to ((test-op (build-op "representer-test"))))

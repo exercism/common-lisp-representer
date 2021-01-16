@@ -10,14 +10,6 @@
 
 (defun kill-package (package-name) (ignore-errors (delete-package package-name)))
 
-(defun slurp-solution (stream)
-  (let ((package-name (package-name *package*)))
-    (uiop:with-safe-io-syntax (:package package-name)
-      (uiop:slurp-stream-forms stream))))
-
-(defun write-repr (repr stream) (write repr :stream stream))
-(defun write-mapping (mapping stream) (yason:encode-alist mapping stream))
-
 (defun produce-representation (slug
                                solution-stream
                                repr-stream
@@ -27,9 +19,9 @@
     (unwind-protect
          (let ((*package* (make-package package-name :use '(:cl))))
            (placeholder:init slug)
-           (write-repr (represent nil (slurp-solution solution-stream))
+           (io:write-repr (represent nil (io:slurp-solution solution-stream))
                        repr-stream)
-           (write-mapping (placeholder:->alist) mapping-stream))
+           (io:write-mapping (placeholder:->alist) mapping-stream))
       (kill-package package-name))))
 
 
