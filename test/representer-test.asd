@@ -10,6 +10,7 @@
   :components ((:file "packages")
                (:file "suite")
                (:file "placeholder")
+               (:file "io")
                (:file "represent")
                (:file "end-to-end")
                (:file "manual-test"))

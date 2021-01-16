@@ -7,4 +7,7 @@
 
 (defun write-repr (repr stream) (write repr :stream stream))
 
-(defun write-mapping (mapping stream) (yason:encode-alist mapping stream))
+(defun write-mapping (mapping stream)
+  (if (not mapping)
+      (format stream "{}")
+      (yason:encode-alist mapping stream)))
