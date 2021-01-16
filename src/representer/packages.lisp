@@ -12,6 +12,11 @@
   (:use #:cl)
   (:export #:represent))
 
+(defpackage #:representer/io
+  (:nicknames #:io)
+  (:use #:cl)
+  (:export :slurp-solution :write-repr :write-mapping))
+
 (defpackage #:representer/main
-  (:use #:cl #:representer)
+  (:use #:cl #:representer #:representer/io)
   (:export #:main))
