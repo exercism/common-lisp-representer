@@ -10,6 +10,14 @@
 
 (defun kill-package (package-name) (ignore-errors (delete-package package-name)))
 
+(defun safe-slurp-solution (stream)
+  (handler-case
+      (io:slurp-solution stream)
+    (end-of-file () "End of file due to missing delimiter in solution file.")
+    (simple-condition (c) (apply #'format nil
+                                 (simple-condition-format-control c)
+                                 (simple-condition-format-arguments c)))))
+
 (defun produce-representation (slug
                                solution-stream
                                repr-stream
@@ -19,7 +27,7 @@
     (unwind-protect
          (let ((*package* (make-package package-name :use '(:cl))))
            (placeholder:init slug)
-           (io:write-repr (represent nil (io:slurp-solution solution-stream))
+           (io:write-repr (represent nil (safe-slurp-solution solution-stream))
                        repr-stream)
            (io:write-mapping (placeholder:->alist) mapping-stream))
       (kill-package package-name))))
