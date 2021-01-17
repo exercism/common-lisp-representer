@@ -16,7 +16,8 @@
     (end-of-file () "End of file due to missing delimiter in solution file.")
     (simple-condition (c) (apply #'format nil
                                  (simple-condition-format-control c)
-                                 (simple-condition-format-arguments c)))))
+                                 (simple-condition-format-arguments c)))
+    (reader-error (c) (write-to-string c :escape nil))))
 
 (defun produce-representation (slug
                                solution-stream
