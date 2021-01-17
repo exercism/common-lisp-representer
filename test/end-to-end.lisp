@@ -27,10 +27,8 @@
               (alexandria:hash-table-plist
                (yason:parse actual-mapping-str))))))
 
-(test two-fer
-  (let* ((slug "two-fer")
-         (directory (make-pathname :directory (list :relative "test" "files" slug))))
-
+(defun end-to-end-test (slug)
+  (let ((directory (make-pathname :directory (list :relative "test" "files" slug))))
     (multiple-value-bind (expected-repr expected-mapping)
         (load-expected-values directory)
 
@@ -39,3 +37,15 @@
 
         (is (equalp++ expected-repr actual-repr))
         (is (equalp++ expected-mapping actual-mapping))))))
+
+
+(test two-fer
+  (end-to-end-test "two-fer"))
+
+(test end-of-file (end-to-end-test "end-of-file"))
+
+#-sbcl (format t "~&NO END-TO-END testing for READER-ERROR cases~&")
+#+sbcl
+(test reader-error
+  (end-to-end-test "reader-error")
+  (end-to-end-test "sharpsign-dot"))
