@@ -23,6 +23,10 @@
   (signals reader-error
     (io:slurp-solution (make-string-input-stream "#<foo>"))))
 
-(test slur-solution-sharpsign-dot
+(test slurp-solution-sharpsign-dot
   (signals reader-error
     (io:slurp-solution (make-string-input-stream "#.(+ 1 1)"))))
+
+(test write-circular
+  (is (string= "#1=(1 2 . #1#)"
+               (with-output-to-string (stream) (io:write-repr '#0=(1 2 . #0#) stream)))))
