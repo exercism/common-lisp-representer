@@ -5,7 +5,7 @@
     (uiop:with-safe-io-syntax (:package package-name)
       (uiop:slurp-stream-forms stream))))
 
-(defun write-repr (repr stream) (write repr :stream stream))
+(defun write-repr (repr stream) (write repr :stream stream :circle t))
 
 (defun write-mapping (mapping stream)
   (if (not mapping)
