@@ -1,4 +1,4 @@
-(in-package #:representer)
+(in-package :representer)
 
 (defun list-type (list)
   (multiple-value-bind (length error)
