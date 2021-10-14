@@ -1,4 +1,4 @@
-(in-package #:representer/io)
+(in-package :representer/io)
 
 (defun slurp-solution (stream)
   (let ((package-name (package-name *package*)))

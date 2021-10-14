@@ -1,4 +1,4 @@
-(in-package #:representer-test)
+(in-package :representer-test)
 
 (def-suite* io-tests :in all-tests)
 

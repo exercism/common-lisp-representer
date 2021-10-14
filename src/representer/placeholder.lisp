@@ -1,4 +1,4 @@
-(in-package #:placeholder)
+(in-package :placeholder)
 
 (defvar *placeholders*)
 (defvar *slug*)

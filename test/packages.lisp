@@ -1,4 +1,4 @@
-(defpackage #:representer-test
+(defpackage :representer-test
   (:use :cl :fiveam)
   (:export
    :run-tests

@@ -1,4 +1,4 @@
-(in-package #:representer/main)
+(in-package :representer/main)
 
 (defun solution-file (slug directory)
   (merge-pathnames (make-pathname :name slug :type "lisp") directory))
