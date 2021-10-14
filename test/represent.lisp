@@ -31,10 +31,10 @@
                   (:export :test-1)
                   (:use :test-2))
                 (representer:represent 'defpackage
-                                        '(defpackage #:pack
+                                        '(defpackage :pack
                                           (:use :cl)
-                                          (:export #:thingie)))))
-    (is (equalp '((":TEST-0" . "#:PACK") (":TEST-1" . "#:THINGIE")
+                                          (:export :thingie)))))
+    (is (equalp '((":TEST-0" . ":PACK") (":TEST-1" . ":THINGIE")
                   (":TEST-2" . ":CL"))
                 (placeholder:->alist)))))
 
