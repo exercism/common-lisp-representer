@@ -1,1 +1,3 @@
 *.fasl
+test/files/**/mapping.json
+test/files/**/representation.txt
