@@ -1,11 +1,14 @@
 (in-package :representer/main)
 
 (defun solution-file (slug directory)
-  (merge-pathnames (make-pathname :name slug :type "lisp") directory))
+  (merge-pathnames (make-pathname :name slug :type "lisp")
+                   (uiop:ensure-directory-pathname directory)))
 (defun representation-file (directory)
-  (merge-pathnames (make-pathname :name "representation" :type "txt") directory))
+  (merge-pathnames (make-pathname :name "representation" :type "txt")
+                   (uiop:ensure-directory-pathname directory)))
 (defun mapping-file (directory)
-  (merge-pathnames (make-pathname :name "mapping" :type "json") directory))
+  (merge-pathnames (make-pathname :name "mapping" :type "json")
+                   (uiop:ensure-directory-pathname directory)))
 (defun repr-package-name (slug) (format nil "~:@(~A~)-REPR" slug))
 
 (defun kill-package (package-name) (ignore-errors (delete-package package-name)))
