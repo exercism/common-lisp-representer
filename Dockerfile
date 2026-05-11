@@ -1,4 +1,4 @@
-FROM clfoundation/sbcl:2.1.5-alpine3.13 AS build
+FROM clfoundation/sbcl:2.6.1-alpine3.22 AS build
 RUN apk --no-cache add curl
 
 # Set working directory
@@ -18,7 +18,7 @@ COPY src quicklisp/local-projects/representer
 RUN sbcl --script ./build/build.lisp
 
 # Build the runtime image
-FROM alpine:3.13
+FROM alpine:3.23.4@sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11
 WORKDIR /opt/representer
 
 # Copy over the representer code
